@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 from django.db.models import Sum, Count, Q
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import (
     SoftwareLicense,
     HardwareComponent,
@@ -274,7 +274,7 @@ def serialize_supplier(sup):
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def suppliers_list_create_view(request):
     if request.method == 'GET':
         search = request.GET.get('search', '').strip()
@@ -294,7 +294,7 @@ def suppliers_list_create_view(request):
         return JsonResponse({'suppliers': suppliers, 'total': len(suppliers)})
 
     elif request.method == 'POST':
-        if not is_admin(request.user):
+        if not request.user.is_authenticated or not is_admin(request.user):
             return JsonResponse({'error': 'Administrator privileges required.'}, status=403)
 
         data = request.data
