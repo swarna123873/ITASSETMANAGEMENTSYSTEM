@@ -1,0 +1,32 @@
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+.npm
+*.log
+
+# Python / Django
+__pycache__/
+*.py[cod]
+*$py.class
+backend/__pycache__/
+backend/core/__pycache__/
+backend/config/__pycache__/
+backend/core/migrations/__pycache__/
+backend/core/management/commands/__pycache__/
+*.sqlite3
+db.sqlite3
+backend/db.sqlite3
+/media
+/static
+
+# Environment & IDE
+.env
+.venv/
+env/
+venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
